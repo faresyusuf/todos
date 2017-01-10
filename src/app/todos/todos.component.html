@@ -1,3 +1,31 @@
-<p>
-  todos works!
-</p>
+<h3>ToDo Area</h3>
+
+<form class="ui large form segment">
+  <h3 class="ui header">Add a ToDo</h3>
+  <div>
+    <label for="title">Title:</label>
+    <input name="title" #newtitle>
+  </div>
+  <div>
+    <label for="desc">Description:</label>
+    <input name="desc" #newdesc>
+  </div>
+  <button (click)="addToDo(newtitle,newdesc)">Add</button>
+</form>
+
+<h3>ToDo List</h3>
+<ul>
+  <li *ngFor="let todo of todos">
+    <div>
+      
+      {{todo.title}}
+      
+      <textarea>
+        {{todo.description}}
+      </textarea>
+      <button (click)=deleteTodo(todo)>X</button>
+    </div>
+  </li>
+</ul>
+
+
