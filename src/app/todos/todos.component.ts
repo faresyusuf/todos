@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Todo} from './todos.model';
+import {TodoService} from '../todo.service';
 
 @Component({
   selector: 'app-todos',
@@ -10,30 +11,24 @@ import {Todo} from './todos.model';
 export class TodosComponent implements OnInit {
   todos: Todo[];
   
-  constructor() {
+  constructor(private _todoService:TodoService) {
     
   }
 
   ngOnInit() {
-    this.todos = [
-      new Todo("drop yusha","dorp yusha to school"),
-      new Todo("pick yusha","pick yusha from school")
-    ];
+    this.todos = this._todoService.getTodos();
   }
 
-  addToDo(title:HTMLInputElement, desc:HTMLInputElement):boolean{
+  addToDo(title:string, desc:string):boolean{
     //console.log(`adding todo in list with title: ${title.value} and description: ${desc.value}`);
-    this.todos.push(new Todo(title.value, desc.value));
+    //this.todos.push(new Todo(title.value, desc.value));
+    this._todoService.addTodo(new Todo(title, desc));
     return false;
   }
 
   deleteTodo(todo){
     console.log( `deleting  ${todo.title}`);
-    for(var i=0;i<this.todos.length; i++){
-      if(this.todos[i] == todo){
-        this.todos.splice(i,1);
-      }
-    }
+    this._todoService.deleteTodo(todo);
   }
 
 }
